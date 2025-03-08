@@ -1,0 +1,11 @@
+.git
+
+.config
+
+node_modules
+
+build
+
+package-lock.json
+
+replit.nix
