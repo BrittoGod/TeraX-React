@@ -122,28 +122,28 @@ function App() {
       setLoading(true);
       setStatus({ message: 'Processing URL...', type: 'info' });
 
-      // Extract the ID from the URL
-      /*const id = url.split('/').pop(); // Assuming the ID is in the query parameter
+      // Fetch metadata (title, thumbnail, and video URL) from the API
+      // API endpoint
+      const apiUrl = 'https://tera-express.vercel.app/api/get';
 
-      if (!id) {
-        setStatus({ message: 'Invalid URL: No ID found', type: 'error' });
-        return;
-      }
+      // Request body
+      const requestBody = { url };
 
-      // Construct the video URL (keep this logic as is)
-      const generatedVideoUrl = `https://mdisksetup.shraj.workers.dev/m3u8?id=${id}`;*/
-      
+      // Headers
+      const headers = {
+        'Content-Type': 'application/json',
+      };
 
-      // Fetch metadata (title and thumbnail) using axios
-      const response = await axios.post('https://tera-express.vercel.app/api/get', {
-        url: url,
-      });
+      // Send POST request
+      const response = await axios.post(apiUrl, requestBody, { headers });
 
       if (response.status !== 200 || !response.data.success) {
         throw new Error('Invalid URL or metadata not found');
       }
-      console.log("data fetched")
-      // Extract metadata (title and thumbnail)
+
+      console.log('API Response:', response.data); // Log the API response for debugging
+
+      // Extract metadata (title, thumbnail, and video URL)
       const { title, thumbnail, videoUrl } = response.data.data;
 
       // Set state with fetched metadata
