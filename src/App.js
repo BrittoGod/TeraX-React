@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { ThemeProvider, createTheme, CssBaseline, Container } from '@mui/material';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
+import TosPage from './pages/TosPage'; // Import the TosPage component
+import PrivacyPolicyPage from './pages/PosPage'; // Import the PrivacyPolicyPage component
 
 // Define light and dark themes
 const lightTheme = createTheme({
@@ -18,7 +21,7 @@ const darkTheme = createTheme({
       main: '#90caf9', // Light blue
     },
     background: {
-      default: '#121212', // Dark gray
+      default: '#162032', // Dark gray
       paper: '#1e1e1e', // Slightly lighter dark gray
     },
     text: {
@@ -39,11 +42,17 @@ function App() {
   return (
     <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
       <CssBaseline enableColorScheme />
-      <NavBar />
-      <Container maxWidth="lg" component="main" sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}>
-        <HomePage />
-      </Container>
-      <Footer />
+      <Router>
+        <NavBar toggleTheme={toggleTheme} />
+        <Container maxWidth="lg" component="main" sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}>
+          <Routes>
+            <Route path="/" element={<HomePage />} /> {/* Home Page */}
+            <Route path="/terms-of-service" element={<TosPage />} /> {/* ToS Page */}
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} /> {/* Privacy Policy Page */}
+          </Routes>
+        </Container>
+        <Footer />
+      </Router>
     </ThemeProvider>
   );
 }
