@@ -9,3 +9,5 @@ build
 package-lock.json
 
 replit.nix
+
+.replit

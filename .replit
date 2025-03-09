@@ -101,10 +101,10 @@ author = 15737751
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "node start.js"
+args = "npm run start"
 
 [deployment]
-run = ["sh", "-c", "node index.js"]
+run = ["sh", "-c", "npm run start"]
 build = ["sh", "-c", "npm run build"]
 
 [[ports]]
