@@ -70,6 +70,24 @@ const VideoPlayerContainer = styled.div`
   max-width: 800px;
 `;
 
+const DownloadButton = styled.a`
+  display: inline-block;
+  margin-top: 1rem;
+  background-color: #34a853;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #2d8a4a;
+  }
+`;
+
 function App() {
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
@@ -141,11 +159,18 @@ function App() {
             config={{
               file: {
                 attributes: {
-                  controlsList: 'nodownload', // Disable download option
+                  controlsList: 'nodownload', // Disable download option in the player
                 },
               },
             }}
           />
+          {/* Download Button */}
+          <DownloadButton
+            href={videoUrl}
+            download="video.mp4" // Specify the default file name for download
+          >
+            Download Video
+          </DownloadButton>
         </VideoPlayerContainer>
       )}
     </AppContainer>
