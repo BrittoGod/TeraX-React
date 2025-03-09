@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import ReactPlayer from 'react-player'; // Import ReactPlayer
+import ReactPlayer from 'react-player';
+import axios from 'axios'; // Import axios
 
 // Styled components
 const AppContainer = styled.div`
@@ -70,6 +71,12 @@ const VideoPlayerContainer = styled.div`
   max-width: 800px;
 `;
 
+const VideoTitle = styled.h2`
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: center;
+`;
+
 const DownloadButton = styled.a`
   display: inline-block;
   margin-top: 1rem;
@@ -88,11 +95,20 @@ const DownloadButton = styled.a`
   }
 `;
 
+const Thumbnail = styled.img`
+  width: 100%;
+  max-width: 800px;
+  margin-top: 1rem;
+  border-radius: 4px;
+`;
+
 function App() {
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState({ message: '', type: '' });
   const [videoUrl, setVideoUrl] = useState('');
+  const [videoTitle, setVideoTitle] = useState('');
+  const [thumbnailUrl, setThumbnailUrl] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -114,10 +130,26 @@ function App() {
         return;
       }
 
-      // Construct the video URL
+      // Construct the video URL (keep this logic as is)
       const generatedVideoUrl = `https://mdisksetup.shraj.workers.dev/m3u8?id=${id}`;
       setVideoUrl(generatedVideoUrl);
-      setStatus({ message: 'Video URL generated successfully!', type: 'info' });
+
+      // Fetch metadata (title and thumbnail) using axios
+      const response = await axios.post('https://tera-express.vercel.app/api/get', {
+        url: url,
+      });
+
+      if (response.status !== 200 || !response.data.success) {
+        throw new Error('Invalid URL or metadata not found');
+      }
+
+      // Extract metadata (title and thumbnail)
+      const { title, thumbnail } = response.data.data;
+
+      // Set state with fetched metadata
+      setVideoTitle(title);
+      setThumbnailUrl(thumbnail);
+      setStatus({ message: 'Video URL and metadata fetched successfully!', type: 'info' });
     } catch (error) {
       console.error('Error:', error);
       setStatus({ 
@@ -149,8 +181,15 @@ function App() {
         <Status type={status.type}>{status.message}</Status>
       )}
 
+      {thumbnailUrl && (
+        <Thumbnail src={thumbnailUrl} alt="Video Thumbnail" />
+      )}
+
       {videoUrl && (
         <VideoPlayerContainer>
+          {/* Display video title above the video player */}
+          {videoTitle && <VideoTitle>{videoTitle}</VideoTitle>}
+
           <ReactPlayer
             url={videoUrl} // Use the generated video URL
             controls={true} // Show video controls (play, pause, volume, etc.)
@@ -167,7 +206,7 @@ function App() {
           {/* Download Button */}
           <DownloadButton
             href={videoUrl}
-            download="video.mp4" // Specify the default file name for download
+            download={`${videoTitle || 'video'}.mp4`} // Use the video title as the file name
           >
             Download Video
           </DownloadButton>
