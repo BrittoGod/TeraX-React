@@ -69,7 +69,7 @@ function HomePage() {
     <>
       {/* Add Page Title, Meta Description, and SEO Tags */}
       <Helmet>
-        <title>Tera-X (Ad-free Terabox media downloader)</title>
+        <title>Tera-X</title>
         <meta
           name="description"
           content="Tera-X is an ad-free tool to download and watch Terabox videos online. Enter a Terabox URL to generate a downloadable video link or watch it directly."
@@ -79,7 +79,7 @@ function HomePage() {
           content="terabox downloader, terabox video download, terabox online watch, ad-free terabox, tera-x, download terabox videos"
         />
         <meta name="author" content="Tera-X Team" />
-        <meta property="og:title" content="Tera-X (Ad-free Terabox downloader/watch online)" />
+        <meta property="og:title" content="Tera-X" />
         <meta
           property="og:description"
           content="Tera-X is an ad-free tool to download and watch Terabox videos online. Enter a Terabox URL to generate a downloadable video link or watch it directly."
@@ -89,7 +89,7 @@ function HomePage() {
         <meta property="og:image" content="https://tera-x.vercel.app/server_status.png" />
         <meta property="og:site_name" content="Tera-X" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Tera-X (Ad-free Terabox downloader/watch online)" />
+        <meta name="twitter:title" content="Tera-X" />
         <meta
           name="twitter:description"
           content="Tera-X is an ad-free tool to download and watch Terabox videos online. Enter a Terabox URL to generate a downloadable video link or watch it directly."

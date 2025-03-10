@@ -43,16 +43,16 @@ export default function NavBar() {
           {/* Dynamic Button */}
           <Button
             variant="contained"
-            href={location.pathname === '/terms-of-service' ? '/' : '/terms-of-service'} // Toggle between Home and ToS
+            href={location.pathname === '/' ? '/terms-of-service' : '/'} // Toggle between Home and ToS
             sx={{
-              backgroundColor: '#4caf50', // Green color
+              background: 'linear-gradient(to right, #4876EE, #00D3AB)', // Green color
               color: '#fff', // White text color
               '&:hover': {
-                backgroundColor: '#388e3c', // Darker green on hover
+                background: 'linear-gradient(to right, #4876EE, #00D3AB)', // Darker green on hover
               },
             }}
           >
-            {location.pathname === '/terms-of-service' ? 'Home' : 'ToS'}
+            {location.pathname === '/' ? 'ToS' : 'Home'}
           </Button>
         </StyledToolbar>
       </Container>

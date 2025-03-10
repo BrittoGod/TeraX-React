@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ThemeProvider, createTheme, CssBaseline, Container } from '@mui/material';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/Navbar';
@@ -7,13 +7,7 @@ import HomePage from './pages/HomePage';
 import TosPage from './pages/TosPage'; // Import the TosPage component
 import PrivacyPolicyPage from './pages/PosPage'; // Import the PrivacyPolicyPage component
 
-// Define light and dark themes
-const lightTheme = createTheme({
-  palette: {
-    mode: 'light',
-  },
-});
-
+// Define dark theme
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -21,7 +15,7 @@ const darkTheme = createTheme({
       main: '#90caf9', // Light blue
     },
     background: {
-      default: '#162032', // Dark gray
+      default: '#0a0a0a', // Dark gray
       paper: '#1e1e1e', // Slightly lighter dark gray
     },
     text: {
@@ -32,23 +26,17 @@ const darkTheme = createTheme({
 });
 
 function App() {
-  const [theme, setTheme] = useState('dark'); // Default theme is dark
-
-  // Toggle between dark and light themes
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
-  };
-
   return (
-    <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
+    <ThemeProvider theme={darkTheme}>
       <CssBaseline enableColorScheme />
       <Router>
-        <NavBar toggleTheme={toggleTheme} />
+        <NavBar />
         <Container maxWidth="lg" component="main" sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}>
           <Routes>
             <Route path="/" element={<HomePage />} /> {/* Home Page */}
             <Route path="/terms-of-service" element={<TosPage />} /> {/* ToS Page */}
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} /> {/* Privacy Policy Page */}
+            <Route path="*" element={<HomePage />} /> {/* 404 fallback */}
           </Routes>
         </Container>
         <Footer />
