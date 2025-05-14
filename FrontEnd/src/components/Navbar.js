@@ -41,7 +41,7 @@ export default function NavBar() {
             <TeraXIcon />
           </Box>
           {/* Dynamic Button */}
-          <Button
+          {/* <Button
             variant="contained"
             href={location.pathname === '/' ? '/terms-of-service' : '/'} // Toggle between Home and ToS
             sx={{
@@ -53,7 +53,7 @@ export default function NavBar() {
             }}
           >
             {location.pathname === '/' ? 'ToS' : 'Home'}
-          </Button>
+          </Button>*/}
         </StyledToolbar>
       </Container>
     </AppBar>
